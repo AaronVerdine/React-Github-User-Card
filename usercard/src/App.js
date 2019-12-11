@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 
 import UserCard from "./UserCard";
+import FollowersCard from "./FollowersCard";
 
 class App extends React.Component {
   constructor() {
@@ -9,12 +10,14 @@ class App extends React.Component {
     this.state = {
       userImg: "",
       userName: "",
-      location: ""
+      location: "",
+      followerImg: []
     };
   }
 
   componentDidMount() {
     this.fetchGithubUsers();
+    this.fetchUserFollowers();
   }
 
   fetchGithubUsers = () => {
@@ -33,6 +36,20 @@ class App extends React.Component {
       });
   };
 
+  fetchUserFollowers = () => {
+    axios
+    .get("https://api.github.com/users/AaronVerdine/followers")
+    .then(res => {
+       console.log(res)
+        for (let i = 0; res.data.length < i; i++) {
+          console.log(i);
+        }
+    });
+    .catch(err => {
+      console.log(err)
+    });
+  };
+
   render() {
     return (
       <div className="App">
@@ -42,9 +59,8 @@ class App extends React.Component {
           userName={this.state.userName}
           location={this.state.location}
         />
-        {/* <select>
-          <option> </option>
-        </select> */}
+        <h2>Followers</h2>
+        <FollowersCard followerImg={this.state.followerImg} />
       </div>
     );
   }
