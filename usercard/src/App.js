@@ -11,7 +11,10 @@ class App extends React.Component {
       userImg: "",
       userName: "",
       location: "",
-      followerImg: ""
+      followerImg: [],
+      followers: []
+      // followerName: ""
+      // users: []
     };
   }
 
@@ -40,12 +43,20 @@ class App extends React.Component {
     axios
       .get("https://api.github.com/users/AaronVerdine/followers")
       .then(res => {
-        console.log(res);
+        console.log(res.data);
+
+        // let followers = res.data;
+
         this.setState({
-          followerImg: res.data[0]["avatar_url"],
-          userName: res.data[0].login,
-          location: res.data[0].location
+          ...this.state,
+          followers: res.data
         });
+
+        // followers.forEach(item => {
+        //   for (let i = 0; i < followers.length; i++) {
+        //     return res.data[i]["avatar_url"];
+        //   }
+        // });
       })
       .catch(err => {
         console.log(err);
@@ -62,11 +73,15 @@ class App extends React.Component {
           location={this.state.location}
         />
         <h2>Followers</h2>
-        <FollowersCard
-          followerImg={this.state.followerImg}
-          userName={this.state.userName}
-          location={this.state.location}
-        />
+        {/* <FollowersCard followerImg={this.state.followerImg} /> */}
+        {this.state.followers.map(item => {
+          return (
+            <div>
+              <h2>{item.login}</h2>
+              <img src={item.avatar_url} />
+            </div>
+          );
+        })}
       </div>
     );
   }
