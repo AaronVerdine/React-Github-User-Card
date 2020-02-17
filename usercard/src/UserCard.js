@@ -1,12 +1,17 @@
 import React from "react";
+import { Card, Image } from "semantic-ui-react";
 
 const UserCard = props => {
   return (
-    <div>
-      <img src={props.userImg} alt="Me" />
-      <h1>{props.userName}</h1>
-      <h2>{props.location}</h2>
-    </div>
+    <Card>
+      <Image src={props.userImg} alt="Me" />
+      <Card.Content>
+        <Card.Header>{props.userName}</Card.Header>
+        <Card.Meta>
+          <span>{props.location}</span>
+        </Card.Meta>
+      </Card.Content>
+    </Card>
   );
 };
 
