@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Card, Image } from "semantic-ui-react";
 import axios from "axios";
 
 import UserCard from "./UserCard";
@@ -12,9 +13,8 @@ class App extends React.Component {
       userName: "",
       location: "",
       followerImg: [],
+      followerName: "",
       followers: []
-      // followerName: ""
-      // users: []
     };
   }
 
@@ -45,18 +45,10 @@ class App extends React.Component {
       .then(res => {
         console.log(res.data);
 
-        // let followers = res.data;
-
         this.setState({
           ...this.state,
           followers: res.data
         });
-
-        // followers.forEach(item => {
-        //   for (let i = 0; i < followers.length; i++) {
-        //     return res.data[i]["avatar_url"];
-        //   }
-        // });
       })
       .catch(err => {
         console.log(err);
@@ -72,14 +64,20 @@ class App extends React.Component {
           userName={this.state.userName}
           location={this.state.location}
         />
-        <h2>Followers</h2>
-        {/* <FollowersCard followerImg={this.state.followerImg} /> */}
+        <h1>Followers</h1>
+
+        <FollowersCard
+          followerImg={this.state.followerImg}
+          followerName={this.state.followerName}
+        />
         {this.state.followers.map(item => {
           return (
-            <div>
-              <h2>{item.login}</h2>
-              <img src={item.avatar_url} />
-            </div>
+            <Card>
+              <Card.Content>
+                <Card.Header>{item.login}</Card.Header>
+              </Card.Content>
+              <Image src={item.avatar_url} />
+            </Card>
           );
         })}
       </div>

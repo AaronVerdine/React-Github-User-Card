@@ -3,9 +3,8 @@ import React from "react";
 const FollowersCard = props => {
   return (
     <div>
-      <img src={props.followerImg} alt="followers" />
-      <h2>{props.userName}</h2>
-      <h3>{props.location}</h3>
+      <h1>{props.followerName}</h1>
+      <h3>{props.url}</h3>
     </div>
   );
 };
